@@ -1,7 +1,6 @@
 package xyz.fabiano.spring.localstack.junit;
 
 import cloud.localstack.docker.LocalstackDocker;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -12,7 +11,6 @@ import java.lang.annotation.Annotation;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Slf4j
 public class SpringLocalstackDockerRunner extends SpringJUnit4ClassRunner {
 
     private Optional<SpringLocalstackProperties> properties;
@@ -36,7 +34,7 @@ public class SpringLocalstackDockerRunner extends SpringJUnit4ClassRunner {
         LocalstackDocker docker = builder.build();
 
         try {
-            docker.startup();
+//            docker.startup();
             super.run(notifier);
         }
         finally {
