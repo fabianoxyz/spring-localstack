@@ -21,10 +21,9 @@ import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.model.CreateQueueRequest;
 import com.amazonaws.services.sqs.model.ListQueuesResult;
 import com.amazonaws.util.IOUtils;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 
 import javax.jms.*;
 import java.io.File;
@@ -38,7 +37,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringLocalstackDockerRunner.class)
-@LocalstackDockerProperties(services = "sqs", randomizePorts = true)
+@ContextConfiguration(classes = SpringTestContext.class)
 public class SpringLocalstackDockerRunnerTest {
 
     @Test
