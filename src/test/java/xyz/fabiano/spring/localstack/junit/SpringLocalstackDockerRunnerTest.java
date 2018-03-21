@@ -3,7 +3,6 @@ package xyz.fabiano.spring.localstack.junit;
 import cloud.localstack.DockerTestUtils;
 import cloud.localstack.TestUtils;
 import cloud.localstack.docker.LocalstackDockerTestRunner;
-import cloud.localstack.docker.annotation.LocalstackDockerProperties;
 import com.amazon.sqs.javamessaging.SQSConnection;
 import com.amazon.sqs.javamessaging.SQSConnectionFactory;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -24,6 +23,7 @@ import com.amazonaws.util.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
+import xyz.fabiano.spring.localstack.annotation.SpringLocalstackProperties;
 
 import javax.jms.*;
 import java.io.File;
@@ -35,8 +35,10 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static xyz.fabiano.spring.localstack.LocalstackService.*;
 
 @RunWith(SpringLocalstackDockerRunner.class)
+@SpringLocalstackProperties(services = {DYNAMO, SQS, KINESIS, S3})
 @ContextConfiguration(classes = SpringTestContext.class)
 public class SpringLocalstackDockerRunnerTest {
 

@@ -4,12 +4,15 @@ import cloud.localstack.docker.LocalstackDocker;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 public class LocalstackDockerBuilder {
 
     private Map<String, String> environmentVariables = new HashMap<>();
 
-    private List<String> services = new ArrayList<>();
+    private List<LocalstackService> services = new ArrayList<>();
 
     private String externalHost = "localhost";
 
@@ -23,7 +26,9 @@ public class LocalstackDockerBuilder {
         docker.setPullNewImage(pullNewImage);
         docker.setExternalHostName(externalHost);
 
-        String servicesJoined = String.join(",", this.services);
+
+        String servicesJoined = this.services.stream().map(LocalstackService::toString).collect(joining(","));
+
         if(StringUtils.isNotEmpty(servicesJoined)) {
             environmentVariables.put("SERVICES", servicesJoined);
         }
@@ -32,12 +37,12 @@ public class LocalstackDockerBuilder {
         return docker;
     }
 
-    public LocalstackDockerBuilder withService(String service) {
+    public LocalstackDockerBuilder withService(LocalstackService service) {
         this.services.add(service);
         return this;
     }
 
-    public LocalstackDockerBuilder withServices(String... services) {
+    public LocalstackDockerBuilder withServices(LocalstackService... services) {
         this.services.addAll(Arrays.asList(services));
         return this;
     }

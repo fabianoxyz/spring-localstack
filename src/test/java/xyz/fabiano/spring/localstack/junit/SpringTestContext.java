@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class SpringTestContext {
 
     @Bean
-    public String salsixate() {
-        return "Fera";
+    public boolean up() {
+        return true;
     }
 }
