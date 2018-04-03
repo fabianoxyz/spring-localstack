@@ -1,5 +1,6 @@
 package xyz.fabiano.spring.localstack.autoconfigure;
 
+import cloud.localstack.docker.LocalstackDocker;
 import com.amazonaws.services.apigateway.AmazonApiGatewayAsync;
 import com.amazonaws.services.cloudformation.AmazonCloudFormationAsync;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchAsync;
@@ -21,13 +22,19 @@ import org.springframework.context.annotation.Primary;
 import xyz.fabiano.spring.localstack.help.DockerClientsHolder;
 
 @Configuration
-@ConditionalOnProperty("spring.localstack.async-clients")
+@ConditionalOnProperty({ "spring.localstack.autoconfiguration", "spring.localstack.async-clients.enabled" })
 public class AsyncClientsAutoConfiguration {
+
+    private LocalstackDocker localstackDocker;
+
+    public AsyncClientsAutoConfiguration(LocalstackDocker localstackDocker) {
+        this.localstackDocker = localstackDocker;
+    }
 
     @Bean
     @Primary
     public AmazonS3 amazonS3() {
-        return DockerClientsHolder.getClientS3();
+        return DockerClientsHolder.amazonS3();
     }
 
     @Bean

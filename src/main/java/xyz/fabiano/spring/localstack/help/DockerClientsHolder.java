@@ -1,6 +1,5 @@
 package xyz.fabiano.spring.localstack.help;
 
-import cloud.localstack.DockerTestUtils;
 import cloud.localstack.TestUtils;
 import cloud.localstack.docker.LocalstackDocker;
 import com.amazonaws.client.builder.AwsAsyncClientBuilder;
@@ -26,6 +25,8 @@ import com.amazonaws.services.redshift.AmazonRedshiftAsync;
 import com.amazonaws.services.redshift.AmazonRedshiftAsyncClientBuilder;
 import com.amazonaws.services.route53.AmazonRoute53Async;
 import com.amazonaws.services.route53.AmazonRoute53AsyncClientBuilder;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsync;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsyncClientBuilder;
 import com.amazonaws.services.sns.AmazonSNSAsync;
@@ -35,11 +36,18 @@ import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 
 import java.util.function.Supplier;
 
-public class DockerClientsHolder extends DockerTestUtils {
+public class DockerClientsHolder {
 
     private static final String region = Regions.DEFAULT_REGION.getName();
 
     private static final LocalstackDocker DOCKER = LocalstackDocker.getLocalstackDocker();
+
+    public static AmazonS3 amazonS3() {
+        return AmazonS3ClientBuilder.standard()
+            .withCredentials(TestUtils.getCredentialsProvider())
+            .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(DOCKER.getEndpointS3(), region))
+            .build();
+    }
 
     public static AmazonSQSAsync amazonSQSAsync() {
         return decorateWithConfigsAndBuild(AmazonSQSAsyncClientBuilder.standard(), DOCKER::getEndpointSQS);
@@ -93,7 +101,7 @@ public class DockerClientsHolder extends DockerTestUtils {
         return decorateWithConfigsAndBuild(AWSLambdaAsyncClientBuilder.standard(), DOCKER::getEndpointLambda);
     }
 
-    public static  <S, T extends AwsAsyncClientBuilder<T, S>> S decorateWithConfigsAndBuild(T builder, Supplier<String> endpointSupplier) {
+    public static <S, T extends AwsAsyncClientBuilder<T, S>> S decorateWithConfigsAndBuild(T builder, Supplier<String> endpointSupplier) {
         return builder
             .withCredentials(TestUtils.getCredentialsProvider())
             .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpointSupplier.get(), region))
