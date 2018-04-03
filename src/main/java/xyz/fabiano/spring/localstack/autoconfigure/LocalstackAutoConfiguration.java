@@ -1,9 +1,9 @@
 package xyz.fabiano.spring.localstack.autoconfigure;
 
-import cloud.localstack.docker.LocalstackDocker;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import xyz.fabiano.spring.localstack.LocalstackDocker;
 
 @Configuration
 @ConditionalOnProperty("spring.localstack.autoconfiguration")
