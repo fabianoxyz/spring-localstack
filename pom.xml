@@ -94,7 +94,7 @@
         <dependency>
             <groupId>cloud.localstack</groupId>
             <artifactId>localstack-utils</artifactId>
-            <version>0.1.11</version>
+            <version>0.1.12</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
