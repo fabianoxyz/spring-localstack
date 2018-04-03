@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty("localstack.clients.bean")
+@ConditionalOnProperty("spring.localstack.sync-clients")
 public class ClientsAutoConfiguration {
 
     @Bean

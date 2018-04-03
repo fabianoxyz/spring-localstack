@@ -85,8 +85,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
             <version>1.5.10.RELEASE</version>
-        </dependency>
-
+            <scope>provided</scope>
+        </dependency>s
 
         <!-- test dependencies -->
         <dependency>
