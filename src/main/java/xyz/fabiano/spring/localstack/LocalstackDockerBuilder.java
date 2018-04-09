@@ -16,7 +16,7 @@ public class LocalstackDockerBuilder {
 
     private String externalHost = "localhost";
 
-    private boolean randomPorts;
+    private boolean randomPorts = false;
 
     private boolean pullNewImage = false;
 

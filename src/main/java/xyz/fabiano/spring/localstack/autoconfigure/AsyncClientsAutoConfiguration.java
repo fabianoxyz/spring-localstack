@@ -1,5 +1,6 @@
 package xyz.fabiano.spring.localstack.autoconfigure;
 
+import cloud.localstack.docker.LocalstackDocker;
 import com.amazonaws.services.apigateway.AmazonApiGatewayAsync;
 import com.amazonaws.services.cloudformation.AmazonCloudFormationAsync;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchAsync;
@@ -18,7 +19,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import xyz.fabiano.spring.localstack.LocalstackDocker;
 import xyz.fabiano.spring.localstack.help.DockerClientsHolder;
 
 @Configuration
