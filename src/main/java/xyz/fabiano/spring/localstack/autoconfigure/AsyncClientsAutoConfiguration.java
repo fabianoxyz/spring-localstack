@@ -19,10 +19,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import xyz.fabiano.spring.localstack.help.DockerClientsHolder;
+import xyz.fabiano.spring.localstack.support.AmazonDockerClientsHolder;
 
 @Configuration
-@ConditionalOnProperty({ "spring.localstack.autoconfiguration", "spring.localstack.async-clients.enabled" })
+@ConditionalOnProperty({"spring.localstack.autoconfiguration", "spring.localstack.async-clients.enabled"})
 public class AsyncClientsAutoConfiguration {
 
     private LocalstackDocker localstackDocker;
@@ -31,74 +31,74 @@ public class AsyncClientsAutoConfiguration {
         this.localstackDocker = localstackDocker;
     }
 
-    @Bean
-    @Primary
-    public AmazonS3 amazonS3() {
-        return DockerClientsHolder.amazonS3();
-    }
-
-    @Bean
-    public AmazonSQSAsync amazonSQSAsync() {
-        return DockerClientsHolder.amazonSQSAsync();
-    }
-
-    @Bean
-    public AmazonSNSAsync amazonSNSAsync() {
-        return DockerClientsHolder.amazonSNSAsync();
-    }
-
-    @Bean
-    public AmazonCloudWatchAsync amazonCloudWatchAsync() {
-        return DockerClientsHolder.amazonCloudWatchAsync();
-    }
-
-    @Bean
-    public AmazonKinesisAsync amazonKinesisAsync() {
-        return DockerClientsHolder.amazonKinesisAsync();
-    }
-
-    @Bean
-    public AmazonDynamoDBAsync amazonDynamoDBAsync() {
-        return DockerClientsHolder.amazonDynamoDBAsync();
-    }
-
-    @Bean
-    public AmazonDynamoDBStreamsAsync amazonDynamoDBStreamsAsync() {
-        return DockerClientsHolder.amazonDynamoDBStreamsAsync();
-    }
-
-    @Bean
-    public AmazonSimpleEmailServiceAsync amazonSimpleEmailServiceAsync() {
-        return DockerClientsHolder.amazonSimpleEmailServiceAsync();
-    }
-
-    @Bean
-    public AmazonApiGatewayAsync amazonApiGatewayAsync() {
-        return DockerClientsHolder.amazonApiGatewayAsync();
-    }
-
-    @Bean
-    public AmazonRedshiftAsync amazonRedshiftAsync() {
-        return DockerClientsHolder.amazonRedshiftAsync();
-    }
-
-    @Bean
-    public AmazonKinesisFirehoseAsync amazonKinesisFirehoseAsync() {
-        return DockerClientsHolder.amazonKinesisFirehoseAsync();
-    }
-
-    @Bean
-    public AmazonRoute53Async amazonRoute53Async() {
-        return DockerClientsHolder.amazonRoute53Async();
-    }
-
-    @Bean
-    public AWSLambdaAsync awsLambdaAsync() {
-        return DockerClientsHolder.awsLambdaAsync();
-    }
-
-    @Bean
-    public AmazonCloudFormationAsync amazonCloudFormationAsync() {
-        return DockerClientsHolder.amazonCloudFormationAsync();
-    }
+//    @Bean
+//    @Primary
+//    public AmazonS3 amazonS3() {
+//        return AmazonDockerClientsHolder.amazonS3();
+//    }
+//
+//    @Bean
+//    public AmazonSQSAsync amazonSQSAsync() {
+//        return AmazonDockerClientsHolder.amazonSQSAsync();
+//    }
+//
+//    @Bean
+//    public AmazonSNSAsync amazonSNSAsync() {
+//        return AmazonDockerClientsHolder.amazonSNSAsync();
+//    }
+//
+//    @Bean
+//    public AmazonCloudWatchAsync amazonCloudWatchAsync() {
+//        return AmazonDockerClientsHolder.amazonCloudWatchAsync();
+//    }
+//
+//    @Bean
+//    public AmazonKinesisAsync amazonKinesisAsync() {
+//        return AmazonDockerClientsHolder.amazonKinesisAsync();
+//    }
+//
+//    @Bean
+//    public AmazonDynamoDBAsync amazonDynamoDBAsync() {
+//        return AmazonDockerClientsHolder.amazonDynamoDBAsync();
+//    }
+//
+//    @Bean
+//    public AmazonDynamoDBStreamsAsync amazonDynamoDBStreamsAsync() {
+//        return AmazonDockerClientsHolder.amazonDynamoDBStreamsAsync();
+//    }
+//
+//    @Bean
+//    public AmazonSimpleEmailServiceAsync amazonSimpleEmailServiceAsync() {
+//        return AmazonDockerClientsHolder.amazonSimpleEmailServiceAsync();
+//    }
+//
+//    @Bean
+//    public AmazonApiGatewayAsync amazonApiGatewayAsync() {
+//        return AmazonDockerClientsHolder.amazonApiGatewayAsync();
+//    }
+//
+//    @Bean
+//    public AmazonRedshiftAsync amazonRedshiftAsync() {
+//        return AmazonDockerClientsHolder.amazonRedshiftAsync();
+//    }
+//
+//    @Bean
+//    public AmazonKinesisFirehoseAsync amazonKinesisFirehoseAsync() {
+//        return AmazonDockerClientsHolder.amazonKinesisFirehoseAsync();
+//    }
+//
+//    @Bean
+//    public AmazonRoute53Async amazonRoute53Async() {
+//        return AmazonDockerClientsHolder.amazonRoute53Async();
+//    }
+//
+//    @Bean
+//    public AWSLambdaAsync awsLambdaAsync() {
+//        return AmazonDockerClientsHolder.awsLambdaAsync();
+//    }
+//
+//    @Bean
+//    public AmazonCloudFormationAsync amazonCloudFormationAsync() {
+//        return AmazonDockerClientsHolder.amazonCloudFormationAsync();
+//    }
 }

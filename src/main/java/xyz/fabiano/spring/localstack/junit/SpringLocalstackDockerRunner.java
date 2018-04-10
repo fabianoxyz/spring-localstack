@@ -36,8 +36,7 @@ public class SpringLocalstackDockerRunner extends SpringJUnit4ClassRunner {
         try {
             docker.startup();
             super.run(notifier);
-        }
-        finally {
+        } finally {
             docker.stop();
         }
     }

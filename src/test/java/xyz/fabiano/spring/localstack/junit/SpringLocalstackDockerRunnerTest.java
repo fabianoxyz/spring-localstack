@@ -22,9 +22,10 @@ import com.amazonaws.services.sqs.model.ListQueuesResult;
 import com.amazonaws.util.IOUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import xyz.fabiano.spring.localstack.annotation.SpringLocalstackProperties;
-import xyz.fabiano.spring.localstack.help.DockerClientsHolder;
+import xyz.fabiano.spring.localstack.support.AmazonDockerClientsHolder;
 
 import javax.jms.*;
 import java.io.File;
@@ -43,9 +44,12 @@ import static xyz.fabiano.spring.localstack.LocalstackService.*;
 @ContextConfiguration(classes = SpringTestContext.class)
 public class SpringLocalstackDockerRunnerTest {
 
+    @Autowired
+    private AmazonDockerClientsHolder amazonDockerClientsHolder;
+
     @Test
     public void testKinesis() throws Exception {
-        AmazonKinesis kinesis = DockerClientsHolder.amazonKinesisAsync();
+        AmazonKinesis kinesis = amazonDockerClientsHolder.amazonKinesis();
 
         ListStreamsResult streamsResult = kinesis.listStreams();
         assertThat(streamsResult.getStreamNames().size(), is(0));
@@ -63,7 +67,7 @@ public class SpringLocalstackDockerRunnerTest {
 
     @Test
     public void testDynamo() throws Exception {
-        AmazonDynamoDB dynamoDB = DockerTestUtils.getClientDynamoDb();
+        AmazonDynamoDB dynamoDB = amazonDockerClientsHolder.amazonDynamoDB();
 
         ListTablesResult tablesResult = dynamoDB.listTables();
         assertThat(tablesResult.getTableNames().size(), is(0));
@@ -82,7 +86,7 @@ public class SpringLocalstackDockerRunnerTest {
 
     @Test
     public void testS3() throws Exception {
-        AmazonS3 client = DockerTestUtils.getClientS3();
+        AmazonS3 client = amazonDockerClientsHolder.amazonS3();
 
         client.createBucket("test-bucket");
         List<Bucket> bucketList = client.listBuckets();
@@ -112,7 +116,7 @@ public class SpringLocalstackDockerRunnerTest {
 
     @Test
     public void testSQS() throws Exception {
-        AmazonSQS client = DockerTestUtils.getClientSQS();
+        AmazonSQS client = amazonDockerClientsHolder.amazonSQS();
 
         Map<String, String> attributeMap = new HashMap<>();
         attributeMap.put("DelaySeconds", "0");
@@ -142,11 +146,11 @@ public class SpringLocalstackDockerRunnerTest {
         assertThat(received.getText(), is("Hello World!"));
     }
 
-
     private SQSConnection createSQSConnection() throws Exception {
         SQSConnectionFactory connectionFactory = SQSConnectionFactory.builder().withEndpoint(
             LocalstackDockerTestRunner.getLocalstackDocker().getEndpointSQS()).withAWSCredentialsProvider(
             new AWSStaticCredentialsProvider(TestUtils.TEST_CREDENTIALS)).build();
+
         return connectionFactory.createConnection();
     }
 }

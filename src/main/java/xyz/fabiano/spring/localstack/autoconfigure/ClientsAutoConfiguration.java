@@ -11,13 +11,4 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty("spring.localstack.sync-clients")
 public class ClientsAutoConfiguration {
 
-    @Bean
-    public AmazonS3 amazonS3() {
-        return DockerTestUtils.getClientS3();
-    }
-
-    @Bean
-    public AmazonSQS amazonSQS() {
-        return DockerTestUtils.getClientSQS();
-    }
 }
