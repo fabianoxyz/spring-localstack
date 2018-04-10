@@ -23,11 +23,6 @@ public class LocalstackAutoConfiguration {
         return localstackDocker;
     }
 
-    @Bean
-    public AmazonClientsHolder amazonClientsHolder(LocalstackDocker localstackDocker) {
-        return new AmazonDockerClientsHolder(localstackDocker);
-    }
-
     @EventListener({ ContextStoppedEvent.class, ContextClosedEvent.class })
     public void cleanContext() {
         if(localstackDocker != null) {

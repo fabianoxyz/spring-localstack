@@ -1,4 +1,5 @@
-sudo: true
+sudo: false
+dist: stretch
 language: java
 services:
   - docker
