@@ -20,11 +20,11 @@ import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.model.CreateQueueRequest;
 import com.amazonaws.services.sqs.model.ListQueuesResult;
 import com.amazonaws.util.IOUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import xyz.fabiano.spring.localstack.annotation.SpringLocalstackProperties;
+import xyz.fabiano.spring.localstack.help.DockerClientsHolder;
 
 import javax.jms.*;
 import java.io.File;
@@ -39,17 +39,16 @@ import static org.junit.Assert.assertThat;
 import static xyz.fabiano.spring.localstack.LocalstackService.*;
 
 @RunWith(SpringLocalstackDockerRunner.class)
-//@SpringLocalstackProperties(services = { DYNAMO, SQS, KINESIS, S3 })
+@SpringLocalstackProperties(services = {DYNAMO, SQS, KINESIS, S3})
 @ContextConfiguration(classes = SpringTestContext.class)
 public class SpringLocalstackDockerRunnerTest {
 
     @Test
-    @Ignore
     public void testKinesis() throws Exception {
-        AmazonKinesis kinesis = DockerTestUtils.getClientKinesis();
+        AmazonKinesis kinesis = DockerClientsHolder.amazonKinesisAsync();
 
-//        ListStreamsResult streamsResult = kinesis.listStreams();
-//        assertThat(streamsResult.getStreamNames().size(), is(0));
+        ListStreamsResult streamsResult = kinesis.listStreams();
+        assertThat(streamsResult.getStreamNames().size(), is(0));
 
         CreateStreamRequest createStreamRequest = new CreateStreamRequest()
             .withStreamName("test-stream")
@@ -57,7 +56,7 @@ public class SpringLocalstackDockerRunnerTest {
 
         kinesis.createStream(createStreamRequest);
 
-        ListStreamsResult streamsResult = kinesis.listStreams();
+        streamsResult = kinesis.listStreams();
         assertThat(streamsResult.getStreamNames(), hasItem("test-stream"));
     }
 
@@ -93,7 +92,7 @@ public class SpringLocalstackDockerRunnerTest {
         File file = File.createTempFile("localstack", "s3");
         file.deleteOnExit();
 
-        try(FileOutputStream stream = new FileOutputStream(file)) {
+        try (FileOutputStream stream = new FileOutputStream(file)) {
             String content = "HELLO WORLD!";
             stream.write(content.getBytes());
         }
@@ -140,7 +139,7 @@ public class SpringLocalstackDockerRunnerTest {
 
         MessageConsumer consumer = session.createConsumer(queue);
         TextMessage received = (TextMessage) consumer.receive();
-        assertThat(received.getText(), is ("Hello World!"));
+        assertThat(received.getText(), is("Hello World!"));
     }
 
 
@@ -148,6 +147,6 @@ public class SpringLocalstackDockerRunnerTest {
         SQSConnectionFactory connectionFactory = SQSConnectionFactory.builder().withEndpoint(
             LocalstackDockerTestRunner.getLocalstackDocker().getEndpointSQS()).withAWSCredentialsProvider(
             new AWSStaticCredentialsProvider(TestUtils.TEST_CREDENTIALS)).build();
-        return  connectionFactory.createConnection();
+        return connectionFactory.createConnection();
     }
 }

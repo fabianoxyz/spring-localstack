@@ -1,5 +1,6 @@
 package xyz.fabiano.spring.localstack;
 
+import cloud.localstack.TestUtils;
 import cloud.localstack.docker.LocalstackDocker;
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,7 +21,13 @@ public class LocalstackDockerBuilder {
 
     private boolean pullNewImage = false;
 
+    private boolean cborEnable = false;
+
     public LocalstackDocker build() {
+        if(!cborEnable) {
+            TestUtils.setEnv("AWS_CBOR_DISABLE", "1");
+        }
+
         LocalstackDocker docker = LocalstackDocker.getLocalstackDocker();
         docker.setRandomizePorts(randomPorts);
         docker.setPullNewImage(pullNewImage);
@@ -35,6 +42,16 @@ public class LocalstackDockerBuilder {
 
         docker.setEnvironmentVariables(environmentVariables);
         return docker;
+    }
+
+    public LocalstackDockerBuilder enableCBOR() {
+        this.cborEnable = true;
+        return this;
+    }
+
+    public LocalstackDockerBuilder disableCBOR() {
+        this.cborEnable = false;
+        return this;
     }
 
     public LocalstackDockerBuilder withService(LocalstackService service) {
