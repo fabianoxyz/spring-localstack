@@ -3,7 +3,7 @@
 
 
 ## Distribution
-This library is under Apache 2.0 license and it is available as an artifact in Maven Central. You can just simply add the following dependency to your project.
+This library is distributed under Apache 2.0 license and it is available as an artifact in Maven Central. You can just simply add the following dependency to your project.
 
 #### Maven:
 ```xml
