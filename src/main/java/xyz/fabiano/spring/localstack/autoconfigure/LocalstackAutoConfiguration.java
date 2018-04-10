@@ -7,9 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextStoppedEvent;
 import org.springframework.context.event.EventListener;
+import xyz.fabiano.spring.localstack.support.AmazonClientsHolder;
+import xyz.fabiano.spring.localstack.support.AmazonDockerClientsHolder;
 
 @Configuration
-@ConditionalOnProperty("spring.localstack.autoconfiguration")
+@ConditionalOnProperty("spring.localstack.enabled")
 public class LocalstackAutoConfiguration {
 
     private LocalstackDocker localstackDocker;
@@ -19,6 +21,11 @@ public class LocalstackAutoConfiguration {
         localstackDocker = LocalstackDocker.getLocalstackDocker();
         localstackDocker.startup();
         return localstackDocker;
+    }
+
+    @Bean
+    public AmazonClientsHolder amazonClientsHolder(LocalstackDocker localstackDocker) {
+        return new AmazonDockerClientsHolder(localstackDocker);
     }
 
     @EventListener({ ContextStoppedEvent.class, ContextClosedEvent.class })

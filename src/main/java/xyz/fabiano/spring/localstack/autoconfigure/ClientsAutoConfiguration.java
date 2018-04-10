@@ -1,14 +1,106 @@
 package xyz.fabiano.spring.localstack.autoconfigure;
 
-import cloud.localstack.DockerTestUtils;
+import com.amazonaws.services.apigateway.AmazonApiGateway;
+import com.amazonaws.services.cloudformation.AmazonCloudFormation;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBStreams;
+import com.amazonaws.services.kinesis.AmazonKinesis;
+import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
+import com.amazonaws.services.lambda.AWSLambda;
+import com.amazonaws.services.redshift.AmazonRedshift;
+import com.amazonaws.services.route53.AmazonRoute53;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
+import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sqs.AmazonSQS;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import xyz.fabiano.spring.localstack.support.AmazonClientsHolder;
 
 @Configuration
-@ConditionalOnProperty("spring.localstack.sync-clients")
+@ConditionalOnBean(AmazonClientsHolder.class)
 public class ClientsAutoConfiguration {
 
+    private AmazonClientsHolder amazonClientsHolder;
+
+    public ClientsAutoConfiguration(AmazonClientsHolder amazonClientsHolder) {
+        this.amazonClientsHolder = amazonClientsHolder;
+    }
+
+    @Bean
+    @Primary
+    public AmazonS3 amazonS3() {
+        return amazonClientsHolder.amazonS3();
+    }
+
+    @Bean
+    public AmazonSQS amazonSQS() {
+        return amazonClientsHolder.amazonSQS();
+    }
+
+    @Bean
+    public AmazonSNS amazonSNS() {
+        return amazonClientsHolder.amazonSNS();
+    }
+
+    @Bean
+    public AmazonCloudWatch amazonCloudWatch() {
+        return amazonClientsHolder.amazonCloudWatch();
+    }
+
+    @Bean
+    public AmazonKinesis amazonKinesis() {
+        return amazonClientsHolder.amazonKinesis();
+    }
+
+    @Bean
+    public AmazonDynamoDB amazonDynamoDB() {
+        return amazonClientsHolder.amazonDynamoDB();
+    }
+
+    @Bean
+    public AmazonDynamoDBStreams amazonDynamoDBStreams() {
+        return amazonClientsHolder.amazonDynamoDBStreams();
+    }
+
+    @Bean
+    public AmazonSimpleEmailService amazonSimpleEmailService() {
+        return amazonClientsHolder.amazonSimpleEmailService();
+    }
+
+    @Bean
+    public AmazonApiGateway amazonApiGateway() {
+        return amazonClientsHolder.amazonApiGateway();
+    }
+
+    @Bean
+    public AmazonRedshift amazonRedshift() {
+        return amazonClientsHolder.amazonRedshift();
+    }
+
+    @Bean
+    public AmazonKinesisFirehose amazonKinesisFirehose() {
+        return amazonClientsHolder.amazonKinesisFirehose();
+    }
+
+    @Bean
+    public AmazonRoute53 amazonRoute53() {
+        return amazonClientsHolder.amazonRoute53();
+    }
+
+    @Bean
+    public AWSLambda awsLambda() {
+        return amazonClientsHolder.awsLambda();
+    }
+
+    @Bean
+    public AmazonCloudFormation amazonCloudFormation() {
+        return amazonClientsHolder.amazonCloudFormation();
+    }
 }

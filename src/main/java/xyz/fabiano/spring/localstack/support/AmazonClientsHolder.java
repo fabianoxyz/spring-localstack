@@ -17,11 +17,8 @@ import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sqs.AmazonSQS;
 
-public interface AWSClientsHolder {
-
-    static final String region = Regions.DEFAULT_REGION.getName();
-
-    static final LocalstackDocker DOCKER = LocalstackDocker.getLocalstackDocker();
+public interface AmazonClientsHolder {
+    String region = Regions.DEFAULT_REGION.getName();
 
     AmazonS3 amazonS3();
 
