@@ -134,6 +134,7 @@ public class Container {
 
     private boolean logContainsPattern(Pattern pattern) {
         String logs = new LogCommand(containerId).withNumberOfLines(NUM_LOG_LINES).execute();
+        System.out.println(logs);
         return pattern.matcher(logs).find();
     }
 
