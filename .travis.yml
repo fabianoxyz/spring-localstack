@@ -4,6 +4,9 @@ language: java
 services:
   - docker
 
+before_script:
+  - docker pull localstack/localstack:latest
+
 cache:
   directories:
     - "$HOME/.cache"

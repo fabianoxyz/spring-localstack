@@ -1,7 +1,7 @@
 package xyz.fabiano.spring.localstack.legacy;
 
 import cloud.localstack.docker.PortMapping;
-import cloud.localstack.docker.command.*;
+import xyz.fabiano.spring.localstack.legacy.command.*;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -125,8 +125,6 @@ public class Container {
             attempts++;
         }
         while(attempts < MAX_LOG_COLLECTION_ATTEMPTS);
-
-        LOG.info(new LogCommand(containerId).withNumberOfLines(400).execute());
 
         throw new IllegalStateException("Could not find token: " + pattern.toString() + " in docker logs.");
     }

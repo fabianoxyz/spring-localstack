@@ -1,10 +1,10 @@
 package xyz.fabiano.spring.localstack.legacy;
 
 import cloud.localstack.ServiceName;
-import cloud.localstack.docker.command.RegexStream;
 import cloud.localstack.docker.exception.LocalstackDockerException;
 import lombok.Getter;
 import lombok.Setter;
+import xyz.fabiano.spring.localstack.legacy.command.RegexStream;
 
 import java.util.Arrays;
 import java.util.Collections;
