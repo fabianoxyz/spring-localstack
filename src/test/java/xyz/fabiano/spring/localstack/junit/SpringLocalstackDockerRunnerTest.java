@@ -1,6 +1,5 @@
 package xyz.fabiano.spring.localstack.junit;
 
-import cloud.localstack.DockerTestUtils;
 import cloud.localstack.TestUtils;
 import cloud.localstack.docker.LocalstackDockerTestRunner;
 import com.amazon.sqs.javamessaging.SQSConnection;

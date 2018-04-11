@@ -1,4 +1,3 @@
-os: osx
 sudo: required
 language: java
 

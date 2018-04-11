@@ -12,7 +12,7 @@ public enum LocalstackService {
     SNS("sns"),
     SQS("sqs"),
     REDSHIFT("redshift"),
-    ELASTICSEARCH_SERVICE("es"),
+//    ELASTICSEARCH_SERVICE("es"),
     SES("ses"),
     ROUTE53("route53"),
     CLOUDFORMATION("cloudformation"),
