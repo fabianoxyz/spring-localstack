@@ -2,10 +2,8 @@ package xyz.fabiano.spring.localstack;
 
 import cloud.localstack.TestUtils;
 import cloud.localstack.docker.LocalstackDocker;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
 
@@ -24,7 +22,7 @@ public class LocalstackDockerBuilder {
     private boolean cborEnable = false;
 
     public LocalstackDocker build() {
-        if(!cborEnable) {
+        if (!cborEnable) {
             TestUtils.setEnv("AWS_CBOR_DISABLE", "1");
         }
 
@@ -33,15 +31,18 @@ public class LocalstackDockerBuilder {
         docker.setPullNewImage(pullNewImage);
         docker.setExternalHostName(externalHost);
 
-
-        String servicesJoined = this.services.stream().map(LocalstackService::toString).collect(joining(","));
-
-        if(StringUtils.isNotEmpty(servicesJoined)) {
-            environmentVariables.put("SERVICES", servicesJoined);
-        }
+        environmentVariables.put("SERVICES", services());
 
         docker.setEnvironmentVariables(environmentVariables);
         return docker;
+    }
+
+    private String services() {
+        return selectServices().stream().map(LocalstackService::toString).collect(joining(","));
+    }
+
+    private Set<LocalstackService> selectServices() {
+        return this.services.isEmpty() ? LocalstackService.defaultServices() : new HashSet<>(this.services);
     }
 
     public LocalstackDockerBuilder enableCBOR() {
