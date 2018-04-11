@@ -25,10 +25,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com:fabianoo/spring-localstack.git</connection>
-        <developerConnection>scm:git:ssh://github.com:fabianoo/spring-localstack.git</developerConnection>
         <url>https://github.com/fabianoo/spring-localstack</url>
-        <tag>HEAD</tag>
+        <connection>scm:git:git://github.com/fabianoo/spring-localstack.git</connection>
+        <developerConnection>scm:git:git@github.com:fabianoo/spring-localstack.git</developerConnection>
     </scm>
 
     <properties>
@@ -126,6 +125,17 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <branchName>master</branchName>
+                    <pushChanges>true</pushChanges>
+                    <localCheckout>true</localCheckout>
+                    <releaseProfiles>release-sign-artifacts</releaseProfiles>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -143,12 +153,6 @@
     <profiles>
         <profile>
             <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -176,16 +180,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>2.5.3</version>
-                        <configuration>
-                            <branchName>master</branchName>
-                            <pushChanges>true</pushChanges>
-                            <localCheckout>true</localCheckout>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
