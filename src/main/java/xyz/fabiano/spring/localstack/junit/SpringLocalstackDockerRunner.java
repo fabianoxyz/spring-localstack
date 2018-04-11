@@ -1,11 +1,11 @@
 package xyz.fabiano.spring.localstack.junit;
 
-import cloud.localstack.docker.LocalstackDocker;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import xyz.fabiano.spring.localstack.LocalstackDockerBuilder;
 import xyz.fabiano.spring.localstack.annotation.SpringLocalstackProperties;
+import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;

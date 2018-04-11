@@ -1,7 +1,7 @@
 package xyz.fabiano.spring.localstack;
 
 import cloud.localstack.TestUtils;
-import cloud.localstack.docker.LocalstackDocker;
+import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 
 import java.util.*;
 

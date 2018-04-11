@@ -1,6 +1,6 @@
 package xyz.fabiano.spring.localstack.support;
 
-import cloud.localstack.docker.LocalstackDocker;
+
 import com.amazonaws.services.apigateway.AmazonApiGatewayAsync;
 import com.amazonaws.services.apigateway.AmazonApiGatewayAsyncClientBuilder;
 import com.amazonaws.services.cloudformation.AmazonCloudFormationAsync;
@@ -27,6 +27,7 @@ import com.amazonaws.services.sns.AmazonSNSAsync;
 import com.amazonaws.services.sns.AmazonSNSAsyncClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
+import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 
 public final class AmazonAsyncDockerClientsHolder extends AbstractAmazonDockerClientsHolder {
 

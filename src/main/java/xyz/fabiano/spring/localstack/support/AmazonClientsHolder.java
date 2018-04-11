@@ -1,6 +1,6 @@
 package xyz.fabiano.spring.localstack.support;
 
-import cloud.localstack.docker.LocalstackDocker;
+
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.apigateway.AmazonApiGateway;
 import com.amazonaws.services.cloudformation.AmazonCloudFormation;

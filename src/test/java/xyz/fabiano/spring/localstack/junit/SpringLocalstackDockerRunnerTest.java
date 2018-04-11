@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import xyz.fabiano.spring.localstack.annotation.SpringLocalstackProperties;
+import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 import xyz.fabiano.spring.localstack.support.AmazonDockerClientsHolder;
 
 import javax.jms.*;
@@ -147,7 +148,7 @@ public class SpringLocalstackDockerRunnerTest {
 
     private SQSConnection createSQSConnection() throws Exception {
         SQSConnectionFactory connectionFactory = SQSConnectionFactory.builder().withEndpoint(
-            LocalstackDockerTestRunner.getLocalstackDocker().getEndpointSQS()).withAWSCredentialsProvider(
+            LocalstackDocker.getLocalstackDocker().getEndpointSQS()).withAWSCredentialsProvider(
             new AWSStaticCredentialsProvider(TestUtils.TEST_CREDENTIALS)).build();
 
         return connectionFactory.createConnection();

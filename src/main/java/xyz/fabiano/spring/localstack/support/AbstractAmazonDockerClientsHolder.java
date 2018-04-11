@@ -1,10 +1,11 @@
 package xyz.fabiano.spring.localstack.support;
 
 import cloud.localstack.TestUtils;
-import cloud.localstack.docker.LocalstackDocker;
+
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 
 import java.util.function.Supplier;
 
