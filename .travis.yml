@@ -1,10 +1,10 @@
-sudo: true
-dist: stretch
+os: osx
+sudo: required
 language: java
-jdk:
-  - oraclejdk8
+
 services:
   - docker
+
 cache:
   directories:
     - "$HOME/.cache"
