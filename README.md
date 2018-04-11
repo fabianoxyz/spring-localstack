@@ -1,6 +1,11 @@
 # A Simple Localstack and Spring Integration
 [![Build Status](https://travis-ci.org/fabianoo/spring-localstack.svg?branch=master)](https://travis-ci.org/fabianoo/spring-localstack)
+[![PyPI License](https://img.shields.io/pypi/l/localstack.svg)](https://img.shields.io/pypi/l/localstack.svg)
 
+## About Localstack
+_LocalStack_ is a fully functional local AWS cloud stack. It provides an easy-to-use test/mocking framework for developing Cloud applications. Currently, the focus is primarily on supporting the AWS cloud stack.
+
+You can checkout more about [here](https://github.com/localstack/localstack).
 
 ## Distribution
 This library is distributed under Apache 2.0 license and it is available as an artifact in Maven Central. You can just simply add the following dependency to your project.
