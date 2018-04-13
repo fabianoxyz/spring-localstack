@@ -22,9 +22,9 @@ public class LocalstackAutoConfiguration {
         return localstackDocker;
     }
 
-    @EventListener({ ContextStoppedEvent.class, ContextClosedEvent.class })
+    @EventListener({ContextStoppedEvent.class, ContextClosedEvent.class})
     public void cleanContext() {
-        if(localstackDocker != null) {
+        if (localstackDocker != null) {
             localstackDocker.stop();
         }
     }
