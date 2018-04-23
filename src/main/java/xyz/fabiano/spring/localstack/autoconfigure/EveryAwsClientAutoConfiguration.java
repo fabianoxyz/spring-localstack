@@ -14,106 +14,90 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sqs.AmazonSQS;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
-import xyz.fabiano.spring.localstack.support.AmazonAsyncDockerClientsHolder;
 import xyz.fabiano.spring.localstack.support.AmazonClientsHolder;
-import xyz.fabiano.spring.localstack.support.AmazonDockerClientsHolder;
 
 @Configuration
-@ConditionalOnProperty("spring.localstack.enabled")
-public class ClientsAutoConfiguration {
+@ConditionalOnProperty(value = "spring.localstack.services", matchIfMissing = true)
+public class EveryAwsClientAutoConfiguration {
 
-    private boolean asyncClientsEnabled;
+    private AmazonClientsHolder amazonClientsHolder;
 
-    public ClientsAutoConfiguration(
-        @Value("${spring.localstack.async-clients.enabled:false}") boolean asyncClientsEnabled) {
-        this.asyncClientsEnabled = asyncClientsEnabled;
-    }
-
-    @Bean
-    public AmazonClientsHolder amazonClientsHolder(LocalstackDocker localstackDocker) {
-        if (asyncClientsEnabled) {
-            return new AmazonAsyncDockerClientsHolder(localstackDocker);
-        } else {
-            return new AmazonDockerClientsHolder(localstackDocker);
-        }
+    public EveryAwsClientAutoConfiguration(AmazonClientsHolder amazonClientsHolder) {
+        this.amazonClientsHolder = amazonClientsHolder;
     }
 
     @Bean
     @Primary
-    public AmazonS3 amazonS3(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonS3 amazonS3() {
         return amazonClientsHolder.amazonS3();
     }
 
     @Bean
-    public AmazonSQS amazonSQS(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonSQS amazonSQS() {
         return amazonClientsHolder.amazonSQS();
     }
 
     @Bean
-    public AmazonSNS amazonSNS(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonSNS amazonSNS() {
         return amazonClientsHolder.amazonSNS();
     }
 
     @Bean
-    public AmazonCloudWatch amazonCloudWatch(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonCloudWatch amazonCloudWatch() {
         return amazonClientsHolder.amazonCloudWatch();
     }
 
     @Bean
-    public AmazonKinesis amazonKinesis(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonKinesis amazonKinesis() {
         return amazonClientsHolder.amazonKinesis();
     }
 
     @Bean
-    public AmazonDynamoDB amazonDynamoDB(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonDynamoDB amazonDynamoDB() {
         return amazonClientsHolder.amazonDynamoDB();
     }
 
     @Bean
-    public AmazonDynamoDBStreams amazonDynamoDBStreams(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonDynamoDBStreams amazonDynamoDBStreams() {
         return amazonClientsHolder.amazonDynamoDBStreams();
     }
 
     @Bean
-    public AmazonSimpleEmailService amazonSimpleEmailService(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonSimpleEmailService amazonSimpleEmailService() {
         return amazonClientsHolder.amazonSimpleEmailService();
     }
 
     @Bean
-    public AmazonApiGateway amazonApiGateway(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonApiGateway amazonApiGateway() {
         return amazonClientsHolder.amazonApiGateway();
     }
 
     @Bean
-    public AmazonRedshift amazonRedshift(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonRedshift amazonRedshift() {
         return amazonClientsHolder.amazonRedshift();
     }
 
     @Bean
-    public AmazonKinesisFirehose amazonKinesisFirehose(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonKinesisFirehose amazonKinesisFirehose() {
         return amazonClientsHolder.amazonKinesisFirehose();
     }
 
     @Bean
-    public AmazonRoute53 amazonRoute53(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonRoute53 amazonRoute53() {
         return amazonClientsHolder.amazonRoute53();
     }
 
     @Bean
-    public AWSLambda awsLambda(AmazonClientsHolder amazonClientsHolder) {
+    public AWSLambda awsLambda() {
         return amazonClientsHolder.awsLambda();
     }
 
     @Bean
-    public AmazonCloudFormation amazonCloudFormation(AmazonClientsHolder amazonClientsHolder) {
+    public AmazonCloudFormation amazonCloudFormation() {
         return amazonClientsHolder.amazonCloudFormation();
     }
 }
-
-

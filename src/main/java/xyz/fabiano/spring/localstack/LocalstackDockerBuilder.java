@@ -3,7 +3,14 @@ package xyz.fabiano.spring.localstack;
 import cloud.localstack.TestUtils;
 import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static java.util.stream.Collectors.joining;
 
@@ -62,6 +69,12 @@ public class LocalstackDockerBuilder {
 
     public LocalstackDockerBuilder withServices(LocalstackService... services) {
         this.services.addAll(Arrays.asList(services));
+        return this;
+    }
+
+    public LocalstackDockerBuilder withServices(Collection<LocalstackService> services) {
+        this.services.clear();
+        this.services.addAll(services);
         return this;
     }
 
