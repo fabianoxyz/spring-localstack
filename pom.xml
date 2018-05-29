@@ -92,6 +92,11 @@
             <version>1.5.10.RELEASE</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.6</version>
+        </dependency>
 
         <!-- test dependencies -->
         <dependency>

@@ -1,6 +1,7 @@
 package xyz.fabiano.spring.localstack.autoconfigure;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -9,12 +10,15 @@ import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextStoppedEvent;
 import org.springframework.context.event.EventListener;
 import xyz.fabiano.spring.localstack.LocalstackDockerBuilder;
+import xyz.fabiano.spring.localstack.LocalstackService;
 import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 import xyz.fabiano.spring.localstack.support.AmazonAsyncDockerClientsHolder;
 import xyz.fabiano.spring.localstack.support.AmazonClientsHolder;
 import xyz.fabiano.spring.localstack.support.AmazonDockerClientsHolder;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Configuration
 @ConditionalOnProperty("spring.localstack.enabled")
@@ -26,14 +30,14 @@ public class LocalstackAutoConfiguration {
     private final boolean pullNewImage;
     private final boolean randomPorts;
     private final String externalHost;
-    private ArrayList<String> services;
+    private String services;
 
     public LocalstackAutoConfiguration(
         @Value("${spring.localstack.async-clients.enabled:false}") boolean asyncClientsEnabled,
         @Value("${spring.localstack.pull-new-image:false}") boolean pullNewImage,
         @Value("${spring.localstack.random-ports:true}") boolean randomPorts,
         @Value("${spring.localstack.external-host:localhost}") String externalHost,
-        @Value("${spring.localstack.services:}") ArrayList<String> services) {
+        @Value("${spring.localstack.services:}") String services) {
 
         this.asyncClientsEnabled = asyncClientsEnabled;
         this.pullNewImage = pullNewImage;
@@ -45,16 +49,24 @@ public class LocalstackAutoConfiguration {
     @Bean
     public LocalstackDocker localstackDocker() {
         LocalstackDockerBuilder localstackBuilder = new LocalstackDockerBuilder();
-        localstackBuilder
+
+        localstackDocker = localstackBuilder
             .pullingNewImages(pullNewImage)
             .withRandomPorts(randomPorts)
             .withExternalHost(externalHost)
             .disableCBOR()
-            .withServices()
+            .withServices(services())
+            .build();
 
-        localstackDocker = LocalstackDocker.getLocalstackDocker();
         localstackDocker.startup();
         return localstackDocker;
+    }
+
+    public List<LocalstackService> services() {
+        return Stream.of(services.split(","))
+            .filter(s -> !StringUtils.isBlank(s))
+            .map(s -> LocalstackService.valueOf(s.toUpperCase()))
+            .collect(Collectors.toList());
     }
 
     @Bean
