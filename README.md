@@ -135,4 +135,9 @@ spring.localstack.services=sqs,sns
 #   Enable randoms ports for the Localstack container. It's a nice option to avoid port conflicts. #   If you use the client beans, you do not need to worry about the endpoints and ports, #   it will already configured with the random ports.
 ##
 spring.localstack.random-ports=true
+
+##
+#   You can specify which is the Docker host for the container to use.
+##
+spring.localstack.external-host=localhost
 ```
