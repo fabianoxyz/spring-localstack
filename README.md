@@ -20,13 +20,13 @@ This library is distributed under Apache 2.0 license and it is available as an a
 <dependency>
 	<groupId>xyz.fabiano</groupId>  
 	<artifactId>spring-localstack</artifactId>  
-	<version>0.0.4</version>  
+	<version>0.0.5</version>
 </dependency>
 ```
 
 #### Gradle:
 ```properties
-compile 'xyz.fabiano:spring-localstack:0.0.4'
+compile 'xyz.fabiano:spring-localstack:0.0.5'
 ```
 
 
