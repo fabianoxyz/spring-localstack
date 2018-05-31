@@ -40,49 +40,6 @@ Before you get up and running, you must meet the following requirements:
 * `Docker` (service running)
 
 
-## Testing with JUnit Runner
-
-The class `SpringLocalstackDockerRunner` is a JUnit runner with the purpose of testing integrated with Localstack and Spring. With this runner, we can compound with `@SpringLocalstackProperties` for more extensible configuration. Check it out:
-
-```java
-@RunWith(SpringLocalstackDockerRunner.class)  
-@SpringLocalstackProperties(services = { S3 })  
-@ContextConfiguration(classes = SpringTestContext.class)  
-public class SpringWithLocalstackExampleTest {
-	@Autowired
-	private AmazonS3 amazonS3;
-  
-    @Test  
-	public void testIfHas10Files() {  
-        ...  
-  
-        ObjectListing listing = amazonS3.listObjects("my-bucket", "a-preffix");  
-		assertThat(listing.getObjectSummaries().size(), is(10));
-	}  
-}
-```
-
-
-And the context configuration:
-
-```java
-@Configuration
-public class SpringTestContext {
-
-    @Bean
-    public AmazonDockerClientsHolder amazonDockerClientsHolder() {
-        return new AmazonDockerClientsHolder(LocalstackDocker.getLocalstackDocker());
-    }
-
-    @Bean
-    public AmazonS3 amazonS3(AmazonDockerClientsHolder amazonDockerClientsHolder) {
-        return amazonDockerClientsHolder.amazonS3();
-    }
-}
-```
-
-
-
 ## Spring Boot Configuration
 
 To activate the auto-configuration with Spring Boot, just add the following property:
@@ -142,4 +99,49 @@ spring.localstack.random-ports=true
 #   You can specify which is the Docker host for the container to use.
 ##
 spring.localstack.external-host=localhost
+```
+
+
+## Testing with JUnit Runner
+
+**Warning**: This option is for testing and you should use it when you do NOT have Localstack integrated with Springboot. if you are using Springboot integrated with Localstack you should use the `SpringRunner.class`.
+
+This option will fit you if you wish to get Spring Context and the Localstack container at the same time for this particular test.
+The class `SpringLocalstackDockerRunner` is a JUnit runner with the purpose of testing integrated with Localstack and Spring. With this runner, we can compound with `@SpringLocalstackProperties` for more extensible configuration. Check it out:
+
+```java
+@RunWith(SpringLocalstackDockerRunner.class)
+@SpringLocalstackProperties(services = { S3 })
+@ContextConfiguration(classes = SpringTestContext.class)
+public class SpringWithLocalstackExampleTest {
+	@Autowired
+	private AmazonS3 amazonS3;
+
+	@Test
+	public void testIfHas10Files() {
+	    ...
+	    
+	    ObjectListing listing = amazonS3.listObjects("my-bucket", "a-preffix");
+	    assertThat(listing.getObjectSummaries().size(), is(10));
+	}
+}
+```
+
+
+And the context configuration:
+
+```java
+@Configuration
+public class SpringTestContext {
+
+    @Bean
+    public AmazonDockerClientsHolder amazonDockerClientsHolder() {
+        return new AmazonDockerClientsHolder(LocalstackDocker.getLocalstackDocker());
+    }
+
+    @Bean
+    public AmazonS3 amazonS3(AmazonDockerClientsHolder amazonDockerClientsHolder) {
+        return amazonDockerClientsHolder.amazonS3();
+    }
+}
 ```
