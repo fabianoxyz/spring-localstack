@@ -105,8 +105,34 @@ public class MyComponent {
 }
 ```
 
-If you wish to use the async the clients instead of the defaults, just add the following property:
 
+Below, you can check it out all available configuration options for this library:
 ```properties
-spring.localstack.async-clients.enabled=true  
+##
+#   Enables Localstack auto-configuration and runs it when getting Spring up.
+#   The auto-configuration already creates all the AWS clients with the endpoint configuration,
+#   so you do not need to instantiate or configure then, just inject it.
+##
+spring.localstack.enabled=true
+
+##
+#   Enables Async clients and creates it in the Spring Context
+##
+spring.localstack.async-clients.enabled=true
+
+##
+#   This tells the application for always look for a new Docker image if available.
+##
+spring.localstack.pull-new-image=true
+
+##
+#   With this option you can specify which services you want to run with Localstack.
+#   This makes the Localstack container more lightweight.
+##
+spring.localstack.services=sqs,sns
+
+##
+#   Enable randoms ports for the Localstack container. It's a nice option to avoid port conflicts. #   If you use the client beans, you do not need to worry about the endpoints and ports, #   it will already configured with the random ports.
+##
+spring.localstack.random-ports=true
 ```
