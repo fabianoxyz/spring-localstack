@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Primary;
 import xyz.fabiano.spring.localstack.support.AmazonClientsHolder;
 
 @Configuration
-@ConditionalOnProperty(value = "spring.localstack.services", matchIfMissing = true)
+@ConditionalOnProperty(value = {"spring.localstack.services", "spring.localstack.enabled"}, matchIfMissing = true)
 public class EveryAwsClientAutoConfiguration {
 
     private AmazonClientsHolder amazonClientsHolder;
