@@ -28,6 +28,8 @@ public class LocalstackDockerBuilder {
 
     private boolean cborEnable = false;
 
+    private Collection<String> options = new ArrayList<>();
+
     public LocalstackDocker build() {
         if (!cborEnable) {
             TestUtils.setEnv("AWS_CBOR_DISABLE", "1");
@@ -41,6 +43,7 @@ public class LocalstackDockerBuilder {
         environmentVariables.put("SERVICES", services());
 
         docker.setEnvironmentVariables(environmentVariables);
+        docker.setOptions(options);
         return docker;
     }
 
@@ -115,6 +118,11 @@ public class LocalstackDockerBuilder {
 
     public LocalstackDockerBuilder withEnvironmentVariables(Map<String, String> environmentVariables) {
         this.environmentVariables = environmentVariables;
+        return this;
+    }
+
+    public LocalstackDockerBuilder withOptions(Collection<String> options) {
+        this.options = options;
         return this;
     }
 }

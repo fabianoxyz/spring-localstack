@@ -8,6 +8,9 @@ import xyz.fabiano.spring.localstack.annotation.SpringLocalstackProperties;
 import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -29,6 +32,7 @@ public class SpringLocalstackDockerRunner extends SpringJUnit4ClassRunner {
             builder.withServices(p.services());
             builder.withRandomPorts(p.randomPorts());
             builder.pullingNewImages(p.pullNewImage());
+            builder.withOptions(options(p));
         });
 
         LocalstackDocker docker = builder.build();
@@ -51,5 +55,18 @@ public class SpringLocalstackDockerRunner extends SpringJUnit4ClassRunner {
             .filter(a -> a instanceof SpringLocalstackProperties)
             .findFirst()
             .map(a -> (SpringLocalstackProperties) a);
+    }
+
+    private List<String> options(SpringLocalstackProperties springLocalstackProperties) {
+        List<String> options = new ArrayList<>();
+        if (springLocalstackProperties.autoRemove()) {
+            options.add("--rm");
+        }
+
+        if (springLocalstackProperties.extraOptions() != null && springLocalstackProperties.extraOptions().length > 0) {
+            options.addAll(Arrays.asList(springLocalstackProperties.extraOptions()));
+        }
+
+        return options;
     }
 }

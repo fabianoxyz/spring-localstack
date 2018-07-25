@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import xyz.fabiano.spring.localstack.legacy.command.RegexStream;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,6 +53,8 @@ public class LocalstackDocker {
     private boolean randomizePorts = false;
     @Setter
     private Map<String, String> environmentVariables = new HashMap<>();
+    @Setter
+    private Collection<String> options = new ArrayList<>();
 
     @Getter
     private static LocalstackDocker localstackDocker = new LocalstackDocker();
@@ -65,7 +69,7 @@ public class LocalstackDocker {
         locked = true;
 
         try {
-            localStackContainer = Container.createLocalstackContainer(externalHostName, pullNewImage, randomizePorts, environmentVariables);
+            localStackContainer = Container.createLocalstackContainer(externalHostName, pullNewImage, randomizePorts, environmentVariables, options);
             loadServiceToPortMap();
 
             LOG.info("Waiting for localstack container to be ready...");

@@ -1,6 +1,7 @@
 package xyz.fabiano.spring.localstack.legacy.command;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -22,19 +23,24 @@ public class RunCommand extends Command {
         return dockerExe.execute(args);
     }
 
-    public xyz.fabiano.spring.localstack.legacy.command.RunCommand withExposedPorts(String portsToExpose, boolean randomize) {
+    public RunCommand withExposedPorts(String portsToExpose, boolean randomize) {
         String portsOption = String.format("%s:%s", randomize ? "" : portsToExpose, portsToExpose);
         addOptions("-p", portsOption);
         return this;
     }
 
-    public xyz.fabiano.spring.localstack.legacy.command.RunCommand withEnvironmentVariable(String name, String value) {
+    public RunCommand withEnvironmentVariable(String name, String value) {
         addEnvOption(name, value);
         return this;
     }
 
-    public xyz.fabiano.spring.localstack.legacy.command.RunCommand withEnvironmentVariables(Map<String, String> environmentVariables) {
-        environmentVariables.forEach((name, value) -> addEnvOption(name, value));
+    public RunCommand withEnvironmentVariables(Map<String, String> environmentVariables) {
+        environmentVariables.forEach(this::addEnvOption);
+        return this;
+    }
+
+    public RunCommand withOptions(Collection<String> options) {
+        options.forEach(this::addOptions);
         return this;
     }
 
