@@ -6,6 +6,7 @@ import xyz.fabiano.spring.localstack.legacy.command.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,7 @@ public class Container {
     private static final long POLL_INTERVAL = 1000;
     private static final int NUM_LOG_LINES = 10;
 
-    public static final String LOCALSTACK_EXTERNAL_HOSTNAME = "HOSTNAME_EXTERNAL";
-
+    private static final String LOCALSTACK_EXTERNAL_HOSTNAME = "HOSTNAME_EXTERNAL";
 
     private final String containerId;
     private final List<PortMapping> ports;
@@ -44,8 +44,11 @@ public class Container {
      *                       in order to prevent conflicts with other localstack containers running on the same machine
      * @param environmentVariables map of environment variables to be passed to the docker container
      */
-    public static Container createLocalstackContainer(String externalHostName, boolean pullNewImage,
-                                                                              boolean randomizePorts, Map<String, String> environmentVariables) {
+    public static Container createLocalstackContainer(String externalHostName,
+                                                      boolean pullNewImage,
+                                                      boolean randomizePorts,
+                                                      Map<String, String> environmentVariables,
+                                                      Collection<String> options) {
 
         if(pullNewImage) {
             LOG.info("Pulling latest image...");
@@ -53,6 +56,7 @@ public class Container {
         }
 
         String containerId = new RunCommand(LOCALSTACK_NAME)
+                .withOptions(options)
                 .withExposedPorts(LOCALSTACK_PORTS, randomizePorts)
                 .withEnvironmentVariable(LOCALSTACK_EXTERNAL_HOSTNAME, externalHostName)
                 .withEnvironmentVariables(environmentVariables)

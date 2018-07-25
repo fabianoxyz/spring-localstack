@@ -16,6 +16,7 @@ import xyz.fabiano.spring.localstack.support.AmazonAsyncDockerClientsHolder;
 import xyz.fabiano.spring.localstack.support.AmazonClientsHolder;
 import xyz.fabiano.spring.localstack.support.AmazonDockerClientsHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,36 +27,40 @@ public class LocalstackAutoConfiguration {
 
     private LocalstackDocker localstackDocker;
 
-    private boolean asyncClientsEnabled;
+    private final boolean asyncClientsEnabled;
     private final boolean pullNewImage;
     private final boolean randomPorts;
     private final String externalHost;
-    private String services;
+    private final String services;
+    private final boolean autoRemove;
+    private final String extraOptions;
 
     public LocalstackAutoConfiguration(
         @Value("${spring.localstack.async-clients.enabled:false}") boolean asyncClientsEnabled,
         @Value("${spring.localstack.pull-new-image:false}") boolean pullNewImage,
         @Value("${spring.localstack.random-ports:true}") boolean randomPorts,
         @Value("${spring.localstack.external-host:localhost}") String externalHost,
-        @Value("${spring.localstack.services:}") String services) {
-
+        @Value("${spring.localstack.services:}") String services,
+        @Value("${spring.localstack.auto-remove:true}") boolean autoRemove,
+        @Value("${spring.localstack.extra-options:}") String extraOptions) {
         this.asyncClientsEnabled = asyncClientsEnabled;
         this.pullNewImage = pullNewImage;
         this.randomPorts = randomPorts;
         this.externalHost = externalHost;
         this.services = services;
+        this.autoRemove = autoRemove;
+        this.extraOptions = extraOptions;
     }
 
     @Bean
     public LocalstackDocker localstackDocker() {
-        LocalstackDockerBuilder localstackBuilder = new LocalstackDockerBuilder();
-
-        localstackDocker = localstackBuilder
+        localstackDocker = new LocalstackDockerBuilder()
             .pullingNewImages(pullNewImage)
             .withRandomPorts(randomPorts)
             .withExternalHost(externalHost)
             .disableCBOR()
             .withServices(services())
+            .withOptions(options())
             .build();
 
         localstackDocker.startup();
@@ -67,6 +72,21 @@ public class LocalstackAutoConfiguration {
             .filter(s -> !StringUtils.isBlank(s))
             .map(s -> LocalstackService.valueOf(s.toUpperCase()))
             .collect(Collectors.toList());
+    }
+
+    private List<String> options() {
+        List<String> options = new ArrayList<>();
+        if (autoRemove) {
+            options.add("--rm");
+        }
+
+        if (StringUtils.isNotBlank(extraOptions)) {
+            options.addAll(Stream.of(extraOptions.split(","))
+                .filter(s -> !StringUtils.isBlank(s))
+                .collect(Collectors.toList()));
+        }
+
+        return options;
     }
 
     @Bean

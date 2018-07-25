@@ -2,7 +2,11 @@ package xyz.fabiano.spring.localstack.annotation;
 
 import xyz.fabiano.spring.localstack.LocalstackService;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
@@ -16,4 +20,8 @@ public @interface SpringLocalstackProperties {
     boolean randomPorts() default true;
 
     boolean pullNewImage() default false;
+
+    boolean autoRemove() default true;
+
+    String[] extraOptions() default {};
 }
