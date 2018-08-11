@@ -33,6 +33,7 @@ public class SpringLocalstackDockerRunner extends SpringJUnit4ClassRunner {
             builder.withRandomPorts(p.randomPorts());
             builder.pullingNewImages(p.pullNewImage());
             builder.withOptions(options(p));
+            builder.withRegion(p.region());
         });
 
         LocalstackDocker docker = builder.build();
