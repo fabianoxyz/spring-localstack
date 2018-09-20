@@ -28,6 +28,8 @@ public class LocalstackDockerBuilder {
 
     private boolean cborEnable = false;
 
+    private String version = "latest";
+
     private Collection<String> options = new ArrayList<>();
 
     public LocalstackDocker build() {
@@ -44,6 +46,7 @@ public class LocalstackDockerBuilder {
 
         docker.setEnvironmentVariables(environmentVariables);
         docker.setOptions(options);
+        docker.setVersion(version);
         return docker;
     }
 
@@ -125,4 +128,10 @@ public class LocalstackDockerBuilder {
         this.options = options;
         return this;
     }
+
+    public LocalstackDockerBuilder withVersion(String version) {
+        this.version = version;
+        return this;
+    }
+
 }

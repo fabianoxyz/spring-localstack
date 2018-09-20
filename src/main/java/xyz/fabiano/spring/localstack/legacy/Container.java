@@ -48,14 +48,16 @@ public class Container {
                                                       boolean pullNewImage,
                                                       boolean randomizePorts,
                                                       Map<String, String> environmentVariables,
-                                                      Collection<String> options) {
+                                                      Collection<String> options,
+                                                      String version) {
+        String imageName = LOCALSTACK_NAME + ":" + version;
 
         if(pullNewImage) {
             LOG.info("Pulling latest image...");
-            new PullCommand(LOCALSTACK_NAME).execute();
+            new PullCommand(imageName).execute();
         }
 
-        String containerId = new RunCommand(LOCALSTACK_NAME)
+        String containerId = new RunCommand(imageName)
                 .withOptions(options)
                 .withExposedPorts(LOCALSTACK_PORTS, randomizePorts)
                 .withEnvironmentVariable(LOCALSTACK_EXTERNAL_HOSTNAME, externalHostName)

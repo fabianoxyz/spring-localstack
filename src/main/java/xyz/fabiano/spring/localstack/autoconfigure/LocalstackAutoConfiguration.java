@@ -34,6 +34,7 @@ public class LocalstackAutoConfiguration {
     private final String services;
     private final boolean autoRemove;
     private final String extraOptions;
+    private final String version;
 
     public LocalstackAutoConfiguration(
         @Value("${spring.localstack.async-clients.enabled:false}") boolean asyncClientsEnabled,
@@ -42,7 +43,8 @@ public class LocalstackAutoConfiguration {
         @Value("${spring.localstack.external-host:localhost}") String externalHost,
         @Value("${spring.localstack.services:}") String services,
         @Value("${spring.localstack.auto-remove:true}") boolean autoRemove,
-        @Value("${spring.localstack.extra-options:}") String extraOptions) {
+        @Value("${spring.localstack.extra-options:}") String extraOptions,
+        @Value("${spring.localstack.version:latest}") String version) {
         this.asyncClientsEnabled = asyncClientsEnabled;
         this.pullNewImage = pullNewImage;
         this.randomPorts = randomPorts;
@@ -50,6 +52,7 @@ public class LocalstackAutoConfiguration {
         this.services = services;
         this.autoRemove = autoRemove;
         this.extraOptions = extraOptions;
+        this.version = version;
     }
 
     @Bean
@@ -61,6 +64,7 @@ public class LocalstackAutoConfiguration {
             .disableCBOR()
             .withServices(services())
             .withOptions(options())
+            .withVersion(version)
             .build();
 
         localstackDocker.startup();
