@@ -1,7 +1,5 @@
 package xyz.fabiano.spring.localstack.support;
 
-
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.apigateway.AmazonApiGateway;
 import com.amazonaws.services.cloudformation.AmazonCloudFormation;
 import com.amazonaws.services.cloudwatch.AmazonCloudWatch;
@@ -18,7 +16,6 @@ import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sqs.AmazonSQS;
 
 public interface AmazonClientsHolder {
-    String region = Regions.DEFAULT_REGION.getName();
 
     AmazonS3 amazonS3();
 

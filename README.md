@@ -99,6 +99,21 @@ spring.localstack.random-ports=true
 #   You can specify which is the Docker host for the container to use.
 ##
 spring.localstack.external-host=localhost
+
+##
+#   You can specify is container will be removed after stop. Default: true
+##
+spring.localstack.auto-remove=false
+
+##
+#   You can specify the extra-options for the container.
+##
+spring.localstack.extra-options=
+
+##
+#   You can specify which is the region. Default: us-east-1
+##
+spring.localstack.region=sa-east-1
 ```
 
 

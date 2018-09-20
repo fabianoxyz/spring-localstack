@@ -55,6 +55,9 @@ public class LocalstackDocker {
     private Map<String, String> environmentVariables = new HashMap<>();
     @Setter
     private Collection<String> options = new ArrayList<>();
+    @Setter
+    @Getter
+    private String region = "us-east-1";
 
     @Getter
     private static LocalstackDocker localstackDocker = new LocalstackDocker();
@@ -69,7 +72,13 @@ public class LocalstackDocker {
         locked = true;
 
         try {
-            localStackContainer = Container.createLocalstackContainer(externalHostName, pullNewImage, randomizePorts, environmentVariables, options);
+            localStackContainer = Container.createLocalstackContainer(
+                externalHostName,
+                pullNewImage,
+                randomizePorts,
+                environmentVariables,
+                options,
+                region);
             loadServiceToPortMap();
 
             LOG.info("Waiting for localstack container to be ready...");

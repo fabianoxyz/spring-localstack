@@ -1,17 +1,17 @@
 package xyz.fabiano.spring.localstack.support;
 
 import cloud.localstack.TestUtils;
-
 import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 public abstract class AbstractAmazonDockerClientsHolder implements AmazonClientsHolder {
 
-    LocalstackDocker localstackDocker;
+    private LocalstackDocker localstackDocker;
 
     AbstractAmazonDockerClientsHolder(LocalstackDocker localstackDocker) {
         this.localstackDocker = localstackDocker;
@@ -20,16 +20,21 @@ public abstract class AbstractAmazonDockerClientsHolder implements AmazonClients
     @Override
     public AmazonS3 amazonS3() {
         return decorateWithConfigsAndBuild(
-            AmazonS3ClientBuilder
-                .standard()
-                .enablePathStyleAccess(),
-            localstackDocker::getEndpointS3);
+            AmazonS3ClientBuilder.standard().enablePathStyleAccess(),
+            LocalstackDocker::getEndpointS3
+        );
     }
 
-    static <S, T extends AwsClientBuilder<T, S>> S decorateWithConfigsAndBuild(T builder, Supplier<String> endpointSupplier) {
+    <S, T extends AwsClientBuilder<T, S>> S decorateWithConfigsAndBuild(
+        T builder,
+        Function<LocalstackDocker, String> endpointFunction
+    ) {
         return builder
             .withCredentials(TestUtils.getCredentialsProvider())
-            .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpointSupplier.get(), region))
+            .withEndpointConfiguration(new EndpointConfiguration(
+                endpointFunction.apply(localstackDocker),
+                localstackDocker.getRegion()
+            ))
             .build();
     }
 }

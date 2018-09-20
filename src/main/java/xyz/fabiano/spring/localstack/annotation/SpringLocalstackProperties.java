@@ -24,4 +24,6 @@ public @interface SpringLocalstackProperties {
     boolean autoRemove() default true;
 
     String[] extraOptions() default {};
+
+    String region() default "us-east-1";
 }

@@ -37,66 +37,105 @@ public final class AmazonAsyncDockerClientsHolder extends AbstractAmazonDockerCl
 
     @Override
     public AmazonSQSAsync amazonSQS() {
-        return decorateWithConfigsAndBuild(AmazonSQSAsyncClientBuilder.standard(), localstackDocker::getEndpointSQS);
+        return decorateWithConfigsAndBuild(
+            AmazonSQSAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointSQS
+        );
     }
 
     @Override
     public AmazonSNSAsync amazonSNS() {
-        return decorateWithConfigsAndBuild(AmazonSNSAsyncClientBuilder.standard(), localstackDocker::getEndpointSNS);
+        return decorateWithConfigsAndBuild(
+            AmazonSNSAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointSNS
+        );
     }
 
     @Override
     public AmazonKinesisAsync amazonKinesis() {
-        return decorateWithConfigsAndBuild(AmazonKinesisAsyncClientBuilder.standard(), localstackDocker::getEndpointKinesis);
+        return decorateWithConfigsAndBuild(
+            AmazonKinesisAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointKinesis
+        );
     }
 
     @Override
     public AmazonDynamoDBAsync amazonDynamoDB() {
-        return decorateWithConfigsAndBuild(AmazonDynamoDBAsyncClientBuilder.standard(), localstackDocker::getEndpointDynamoDB);
+        return decorateWithConfigsAndBuild(
+            AmazonDynamoDBAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointDynamoDB
+        );
     }
 
     @Override
     public AmazonDynamoDBStreamsAsync amazonDynamoDBStreams() {
-        return decorateWithConfigsAndBuild(AmazonDynamoDBStreamsAsyncClientBuilder.standard(), localstackDocker::getEndpointDynamoDBStreams);
+        return decorateWithConfigsAndBuild(
+            AmazonDynamoDBStreamsAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointDynamoDBStreams
+        );
     }
 
     @Override
     public AmazonSimpleEmailServiceAsync amazonSimpleEmailService() {
-        return decorateWithConfigsAndBuild(AmazonSimpleEmailServiceAsyncClientBuilder.standard(), localstackDocker::getEndpointSES);
+        return decorateWithConfigsAndBuild(
+            AmazonSimpleEmailServiceAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointSES
+        );
     }
 
     @Override
     public AmazonApiGatewayAsync amazonApiGateway() {
-        return decorateWithConfigsAndBuild(AmazonApiGatewayAsyncClientBuilder.standard(), localstackDocker::getEndpointAPIGateway);
+        return decorateWithConfigsAndBuild(
+            AmazonApiGatewayAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointAPIGateway
+        );
     }
 
     @Override
     public AmazonRedshiftAsync amazonRedshift() {
-        return decorateWithConfigsAndBuild(AmazonRedshiftAsyncClientBuilder.standard(), localstackDocker::getEndpointRedshift);
+        return decorateWithConfigsAndBuild(
+            AmazonRedshiftAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointRedshift
+        );
     }
 
     @Override
     public AmazonCloudWatchAsync amazonCloudWatch() {
-        return decorateWithConfigsAndBuild(AmazonCloudWatchAsyncClientBuilder.standard(), localstackDocker::getEndpointCloudWatch);
+        return decorateWithConfigsAndBuild(
+            AmazonCloudWatchAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointCloudWatch
+        );
     }
 
     @Override
     public AmazonCloudFormationAsync amazonCloudFormation() {
-        return decorateWithConfigsAndBuild(AmazonCloudFormationAsyncClientBuilder.standard(), localstackDocker::getEndpointCloudFormation);
+        return decorateWithConfigsAndBuild(
+            AmazonCloudFormationAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointCloudFormation
+        );
     }
 
     @Override
     public AmazonKinesisFirehoseAsync amazonKinesisFirehose() {
-        return decorateWithConfigsAndBuild(AmazonKinesisFirehoseAsyncClientBuilder.standard(), localstackDocker::getEndpointFirehose);
+        return decorateWithConfigsAndBuild(
+            AmazonKinesisFirehoseAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointFirehose
+        );
     }
 
     @Override
     public AmazonRoute53Async amazonRoute53() {
-        return decorateWithConfigsAndBuild(AmazonRoute53AsyncClientBuilder.standard(), localstackDocker::getEndpointRoute53);
+        return decorateWithConfigsAndBuild(
+            AmazonRoute53AsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointRoute53
+        );
     }
 
     @Override
     public AWSLambdaAsync awsLambda() {
-        return decorateWithConfigsAndBuild(AWSLambdaAsyncClientBuilder.standard(), localstackDocker::getEndpointLambda);
+        return decorateWithConfigsAndBuild(
+            AWSLambdaAsyncClientBuilder.standard(),
+            LocalstackDocker::getEndpointLambda
+        );
     }
 }
