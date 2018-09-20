@@ -32,6 +32,8 @@ public class LocalstackDockerBuilder {
 
     private Collection<String> options = new ArrayList<>();
 
+    private String region = "us-east-1";
+
     public LocalstackDocker build() {
         if (!cborEnable) {
             TestUtils.setEnv("AWS_CBOR_DISABLE", "1");
@@ -47,6 +49,7 @@ public class LocalstackDockerBuilder {
         docker.setEnvironmentVariables(environmentVariables);
         docker.setOptions(options);
         docker.setVersion(version);
+        docker.setRegion(region);
         return docker;
     }
 
@@ -134,4 +137,8 @@ public class LocalstackDockerBuilder {
         return this;
     }
 
+    public LocalstackDockerBuilder withRegion(String region) {
+        this.region = region;
+        return this;
+    }
 }

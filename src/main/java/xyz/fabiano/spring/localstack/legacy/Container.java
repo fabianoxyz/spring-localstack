@@ -31,6 +31,7 @@ public class Container {
     private static final int NUM_LOG_LINES = 10;
 
     private static final String LOCALSTACK_EXTERNAL_HOSTNAME = "HOSTNAME_EXTERNAL";
+    private static final String LOCALSTACK_DEFAULT_REGION = "DEFAULT_REGION";
 
     private final String containerId;
     private final List<PortMapping> ports;
@@ -49,9 +50,10 @@ public class Container {
                                                       boolean randomizePorts,
                                                       Map<String, String> environmentVariables,
                                                       Collection<String> options,
-                                                      String version) {
+                                                      String version,
+                                                      String region) {
         String imageName = LOCALSTACK_NAME + ":" + version;
-
+      
         if(pullNewImage) {
             LOG.info("Pulling latest image...");
             new PullCommand(imageName).execute();
@@ -62,6 +64,7 @@ public class Container {
                 .withExposedPorts(LOCALSTACK_PORTS, randomizePorts)
                 .withEnvironmentVariable(LOCALSTACK_EXTERNAL_HOSTNAME, externalHostName)
                 .withEnvironmentVariables(environmentVariables)
+                .withEnvironmentVariable(LOCALSTACK_DEFAULT_REGION, region)
                 .execute();
         LOG.info("Started container: " + containerId);
 

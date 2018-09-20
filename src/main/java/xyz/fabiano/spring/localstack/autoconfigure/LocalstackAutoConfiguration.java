@@ -35,6 +35,7 @@ public class LocalstackAutoConfiguration {
     private final boolean autoRemove;
     private final String extraOptions;
     private final String version;
+    private final String region;
 
     public LocalstackAutoConfiguration(
         @Value("${spring.localstack.async-clients.enabled:false}") boolean asyncClientsEnabled,
@@ -45,6 +46,7 @@ public class LocalstackAutoConfiguration {
         @Value("${spring.localstack.auto-remove:true}") boolean autoRemove,
         @Value("${spring.localstack.extra-options:}") String extraOptions,
         @Value("${spring.localstack.version:latest}") String version) {
+        @Value("${spring.localstack.region:us-east-1}") String region) {
         this.asyncClientsEnabled = asyncClientsEnabled;
         this.pullNewImage = pullNewImage;
         this.randomPorts = randomPorts;
@@ -53,6 +55,7 @@ public class LocalstackAutoConfiguration {
         this.autoRemove = autoRemove;
         this.extraOptions = extraOptions;
         this.version = version;
+        this.region = region;
     }
 
     @Bean
@@ -65,6 +68,7 @@ public class LocalstackAutoConfiguration {
             .withServices(services())
             .withOptions(options())
             .withVersion(version)
+            .withRegion(region)
             .build();
 
         localstackDocker.startup();
