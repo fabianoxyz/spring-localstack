@@ -45,7 +45,7 @@ public class LocalstackAutoConfiguration {
         @Value("${spring.localstack.services:}") String services,
         @Value("${spring.localstack.auto-remove:true}") boolean autoRemove,
         @Value("${spring.localstack.extra-options:}") String extraOptions,
-        @Value("${spring.localstack.version:latest}") String version) {
+        @Value("${spring.localstack.version:latest}") String version,
         @Value("${spring.localstack.region:us-east-1}") String region) {
         this.asyncClientsEnabled = asyncClientsEnabled;
         this.pullNewImage = pullNewImage;

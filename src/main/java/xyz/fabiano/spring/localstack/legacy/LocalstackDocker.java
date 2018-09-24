@@ -57,7 +57,7 @@ public class LocalstackDocker {
     private Collection<String> options = new ArrayList<>();
     @Setter
     private String version = "latest";
-    @Getter
+    @Getter @Setter
     private String region = "us-east-1";
 
     @Getter
