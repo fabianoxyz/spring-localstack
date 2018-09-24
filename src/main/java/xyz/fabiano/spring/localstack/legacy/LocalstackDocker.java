@@ -56,6 +56,7 @@ public class LocalstackDocker {
     @Setter
     private Collection<String> options = new ArrayList<>();
     @Setter
+    private String version = "latest";
     @Getter
     private String region = "us-east-1";
 
@@ -78,6 +79,7 @@ public class LocalstackDocker {
                 randomizePorts,
                 environmentVariables,
                 options,
+                version,
                 region);
             loadServiceToPortMap();
 

@@ -28,6 +28,8 @@ public class LocalstackDockerBuilder {
 
     private boolean cborEnable = false;
 
+    private String version = "latest";
+
     private Collection<String> options = new ArrayList<>();
 
     private String region = "us-east-1";
@@ -46,6 +48,7 @@ public class LocalstackDockerBuilder {
 
         docker.setEnvironmentVariables(environmentVariables);
         docker.setOptions(options);
+        docker.setVersion(version);
         docker.setRegion(region);
         return docker;
     }
@@ -126,6 +129,11 @@ public class LocalstackDockerBuilder {
 
     public LocalstackDockerBuilder withOptions(Collection<String> options) {
         this.options = options;
+        return this;
+    }
+
+    public LocalstackDockerBuilder withVersion(String version) {
+        this.version = version;
         return this;
     }
 

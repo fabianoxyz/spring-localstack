@@ -34,6 +34,7 @@ public class LocalstackAutoConfiguration {
     private final String services;
     private final boolean autoRemove;
     private final String extraOptions;
+    private final String version;
     private final String region;
 
     public LocalstackAutoConfiguration(
@@ -44,6 +45,7 @@ public class LocalstackAutoConfiguration {
         @Value("${spring.localstack.services:}") String services,
         @Value("${spring.localstack.auto-remove:true}") boolean autoRemove,
         @Value("${spring.localstack.extra-options:}") String extraOptions,
+        @Value("${spring.localstack.version:latest}") String version) {
         @Value("${spring.localstack.region:us-east-1}") String region) {
         this.asyncClientsEnabled = asyncClientsEnabled;
         this.pullNewImage = pullNewImage;
@@ -52,6 +54,7 @@ public class LocalstackAutoConfiguration {
         this.services = services;
         this.autoRemove = autoRemove;
         this.extraOptions = extraOptions;
+        this.version = version;
         this.region = region;
     }
 
@@ -64,6 +67,7 @@ public class LocalstackAutoConfiguration {
             .disableCBOR()
             .withServices(services())
             .withOptions(options())
+            .withVersion(version)
             .withRegion(region)
             .build();
 
