@@ -125,8 +125,13 @@ This option will fit you if you wish to get Spring Context and the Localstack co
 The class `SpringLocalstackDockerRunner` is a JUnit runner with the purpose of testing integrated with Localstack and Spring. With this runner, we can compound with `@SpringLocalstackProperties` for more extensible configuration. Check it out:
 
 ```java
+...
+import xyz.fabiano.spring.localstack.LocalstackService;
+import xyz.fabiano.spring.localstack.annotation.SpringLocalstackProperties;
+import xyz.fabiano.spring.localstack.junit.SpringLocalstackDockerRunner;
+
 @RunWith(SpringLocalstackDockerRunner.class)
-@SpringLocalstackProperties(services = { S3 })
+@SpringLocalstackProperties(services = { LocalstackService.S3 })
 @ContextConfiguration(classes = SpringTestContext.class)
 public class SpringWithLocalstackExampleTest {
 	@Autowired
@@ -146,6 +151,10 @@ public class SpringWithLocalstackExampleTest {
 And the context configuration:
 
 ```java
+...
+import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
+import xyz.fabiano.spring.localstack.support.AmazonDockerClientsHolder;
+
 @Configuration
 public class SpringTestContext {
 
