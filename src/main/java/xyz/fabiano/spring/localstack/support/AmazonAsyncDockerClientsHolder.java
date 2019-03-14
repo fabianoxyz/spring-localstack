@@ -23,10 +23,14 @@ import com.amazonaws.services.route53.AmazonRoute53Async;
 import com.amazonaws.services.route53.AmazonRoute53AsyncClientBuilder;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsync;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceAsyncClientBuilder;
+import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement;
+import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClientBuilder;
 import com.amazonaws.services.sns.AmazonSNSAsync;
 import com.amazonaws.services.sns.AmazonSNSAsyncClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
+import com.amazonaws.services.stepfunctions.AWSStepFunctions;
+import com.amazonaws.services.stepfunctions.AWSStepFunctionsClientBuilder;
 import xyz.fabiano.spring.localstack.legacy.LocalstackDocker;
 
 public final class AmazonAsyncDockerClientsHolder extends AbstractAmazonDockerClientsHolder {
@@ -136,6 +140,22 @@ public final class AmazonAsyncDockerClientsHolder extends AbstractAmazonDockerCl
         return decorateWithConfigsAndBuild(
             AWSLambdaAsyncClientBuilder.standard(),
             LocalstackDocker::getEndpointLambda
+        );
+    }
+
+    @Override
+    public AWSSimpleSystemsManagement awsSimpleSystemsManagement() {
+        return decorateWithConfigsAndBuild(
+          AWSSimpleSystemsManagementClientBuilder.standard(),
+          LocalstackDocker::getEndpointSSM
+        );
+    }
+
+    @Override
+    public AWSStepFunctions awsStepFunctions() {
+        return decorateWithConfigsAndBuild(
+          AWSStepFunctionsClientBuilder.standard(),
+          LocalstackDocker::getEndpointStepFunction
         );
     }
 }

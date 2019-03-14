@@ -12,8 +12,10 @@ import com.amazonaws.services.redshift.AmazonRedshift;
 import com.amazonaws.services.route53.AmazonRoute53;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
+import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.stepfunctions.AWSStepFunctions;
 
 public interface AmazonClientsHolder {
 
@@ -44,4 +46,8 @@ public interface AmazonClientsHolder {
     AmazonRoute53 amazonRoute53();
 
     AWSLambda awsLambda();
+
+    AWSSimpleSystemsManagement awsSimpleSystemsManagement();
+
+    AWSStepFunctions awsStepFunctions();
 }
