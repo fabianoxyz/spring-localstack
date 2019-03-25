@@ -12,8 +12,11 @@ import com.amazonaws.services.redshift.AmazonRedshift;
 import com.amazonaws.services.route53.AmazonRoute53;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
+import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.stepfunctions.AWSStepFunctions;
+import com.amazonaws.services.stepfunctions.AWSStepFunctionsClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -100,4 +103,10 @@ public class EveryAwsClientAutoConfiguration {
     public AmazonCloudFormation amazonCloudFormation() {
         return amazonClientsHolder.amazonCloudFormation();
     }
+
+    @Bean
+    public AWSSimpleSystemsManagement awsSimpleSystemsManagement() { return  amazonClientsHolder.awsSimpleSystemsManagement(); }
+
+    @Bean
+    public AWSStepFunctions awsStepFunctions() { return amazonClientsHolder.awsStepFunctions(); }
 }

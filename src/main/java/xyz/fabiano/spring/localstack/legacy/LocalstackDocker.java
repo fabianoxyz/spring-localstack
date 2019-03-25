@@ -186,6 +186,8 @@ public class LocalstackDocker {
         return endpointForService(ServiceName.SSM);
     }
 
+    public String getEndpointStepFunction() { return endpointForService(ServiceName.STEPFUNCTIONS); }
+
 
     public String endpointForService(String serviceName) {
         if (serviceToPortMap == null) {

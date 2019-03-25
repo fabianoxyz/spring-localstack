@@ -20,6 +20,7 @@ public enum LocalstackService {
     CLOUDFORMATION("cloudformation"),
     CLOUDWATCH("cloudwatch"),
     SSM("ssm"),
+    STEP_FUNCTION("stepfunctions"),
 
     ELASTICSEARCH("elasticsearch", false),
     ELASTICSEARCH_SERVICE("es", false);
