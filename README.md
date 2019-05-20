@@ -20,13 +20,13 @@ This library is distributed under Apache 2.0 license and it is available as an a
 <dependency>
 	<groupId>xyz.fabiano</groupId>  
 	<artifactId>spring-localstack</artifactId>  
-	<version>0.0.7</version>
+	<version>0.0.10</version>
 </dependency>
 ```
 
 #### Gradle:
 ```properties
-compile 'xyz.fabiano:spring-localstack:0.0.7'
+compile 'xyz.fabiano:spring-localstack:0.0.10'
 ```
 
 
@@ -81,6 +81,11 @@ spring.localstack.async-clients.enabled=true
 #   This tells the application for always look for a new Docker image if available.
 ##
 spring.localstack.pull-new-image=true
+
+##
+#   This tells the application to pull a particular version of Docker image only. Default latest.
+##
+spring.localstack.version=0.9.2
 
 ##
 #   With this option you can specify which services you want to run with Localstack.

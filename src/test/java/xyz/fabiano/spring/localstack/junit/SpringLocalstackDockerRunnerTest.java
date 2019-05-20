@@ -40,7 +40,7 @@ import static org.junit.Assert.assertThat;
 import static xyz.fabiano.spring.localstack.LocalstackService.*;
 
 @RunWith(SpringLocalstackDockerRunner.class)
-@SpringLocalstackProperties(services = {DYNAMO, SQS, KINESIS, S3}, version = "0.9.1", pullNewImage = true)
+@SpringLocalstackProperties(services = {DYNAMO, SQS, KINESIS, S3}, version = "0.9.2", pullNewImage = true)
 @ContextConfiguration(classes = SpringTestContext.class)
 public class SpringLocalstackDockerRunnerTest {
 
