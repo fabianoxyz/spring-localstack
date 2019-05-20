@@ -4,7 +4,7 @@
     <groupId>xyz.fabiano</groupId>
     <artifactId>spring-localstack</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.10-SNAPSHOT</version>
+    <version>0.0.10.dlocal-SNAPSHOT</version>
     <name>Spring localstack Utilities</name>
 
     <description>Java and Spring utilities for the Localstack platform.</description>
