@@ -26,4 +26,6 @@ public @interface SpringLocalstackProperties {
     String[] extraOptions() default {};
 
     String region() default "us-east-1";
+
+    String version() default "latest";
 }
