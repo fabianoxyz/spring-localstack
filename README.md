@@ -9,6 +9,9 @@ _LocalStack_ is a fully functional local AWS cloud stack. It provides an easy-to
 
 You can checkout more about [here](https://github.com/localstack/localstack).
 
+## Warning: Project Discontinued 
+
+This project was discontinued, and won't be receiving any updates. As per its license, you are free to fork it, and take ownership.
 
 
 ## Distribution
